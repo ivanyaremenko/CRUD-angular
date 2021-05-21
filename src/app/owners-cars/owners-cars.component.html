@@ -1,0 +1,37 @@
+<h5>Владельцы автомобилей</h5>
+
+<div class="button-container">
+  <div>
+<button [routerLink]="['/newOwner']" [queryParams]="{param: 'create'}" class="btn">+добавить</button>
+</div>
+<div>
+<button [disabled]="disabled || !ownerId" class="btn" [routerLink]="['/newOwner', ownerId]" [queryParams]="{param: 'view'}">просмотр</button>
+<button [disabled]="disabled || !ownerId" class="btn" [routerLink]="['/newOwner', ownerId]" [queryParams]="{param: 'edit'}">редактировать</button>
+<button [disabled]="disabled || !ownerId" class="btn" (click)="deleteOwner()">удалить</button>
+</div>
+
+</div>
+  <table>
+    <tr>
+      <th>Фамилия</th>
+      <th>Имя</th>
+      <th>Отчество</th>
+      <th *ngIf= true>Количество автомобилей</th>
+    </tr>
+    <tr *ngIf="owners.length < 1">
+      <td>none</td>
+      <td>none</td>
+      <td>none</td>
+      <td>1</td>
+    </tr>
+    <tr *ngFor="let owner of owners ; let i = index"
+    (click)="clickTableRow(i)"
+    class="select--оwner"
+    >
+      <td>{{owner.aLastName}}</td>
+      <td>{{owner.aFirstName}}</td>
+      <td>{{owner.aMiddleName}}</td>
+      <td>{{owner.aCars.length}}</td>
+    </tr>
+  </table>
+

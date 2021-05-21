@@ -1,0 +1,82 @@
+<form class="card" [formGroup]="form">
+
+  <div>
+  <label>Фамилия</label>
+    <input type="text" formControlName="aLastName">
+  </div>
+
+<div>
+  <label>Имя</label>
+  <input type="text" formControlName="aFirstName">
+</div>
+
+<div>
+  <label>Отчество</label>
+  <input type="text" formControlName="aMiddleName">
+</div>
+
+<div >
+  <small *ngIf=" (form.touched && form.invalid) && (form.get('aLastName').errors || form.get('aFirstName').errors || form.get('aMiddleName').errors)"
+   class="validation">Введите данные:  </small>
+  <small *ngIf="form.get('aLastName').invalid && form.get('aLastName').touched">Введите Фамилию!  </small>
+  <small *ngIf="form.get('aFirstName').invalid && form.get('aFirstName').touched">Введите Имя!  </small>
+  <small *ngIf="form.get('aMiddleName').invalid && form.get('aMiddleName').touched">Введите Отчество!  </small>
+  <small *ngIf="warning">  Введите гос.номер в формате "CB4477HМ" </small>
+</div>
+<hr/>
+
+<table>
+  <tr>
+    <th>Номер</th>
+    <th>Марка</th>
+    <th>Модель</th>
+    <th>Год</th>
+  </tr>
+
+
+    <ng-container #listCars *ngFor="let car of owner.aCars; let i = index">
+  <tr>
+    <td >
+      <input type="text" [disabled]="true" [value]="car.gosNumber" >
+    </td>
+    <td>
+      <input type="text" [disabled]="true" [value]="car.nameManufacturer">
+    </td>
+    <td>
+      <input type="text" [disabled]="true" [value]="car.nameModel">
+    </td>
+    <td>
+      <input type="text" [disabled]="true" [value]="car.yearProduction">
+    </td>
+    <td><button [disabled]="param == 'view' || owner.aCars.length == 1" class="material-icons" (click)="deleteCar(i)">delete</button></td>
+  </tr>
+</ng-container>
+
+<ng-container *ngIf="param !== 'view'"; else listCars>
+  <tr>
+    <td>
+      <input type="text" formControlName="gosNumber">
+    </td>
+    <td>
+      <input type="text" formControlName="nameManufacturer">
+    </td>
+    <td>
+      <input type="text" formControlName="nameModel">
+    </td>
+    <td>
+      <input type="text" formControlName="yearProduction">
+    </td>
+    <td><button [disabled]="param == 'view' || 'edit'" class="material-icons">delete</button></td>
+  </tr>
+</ng-container>
+
+</table>
+<div *ngIf="param == 'edit'" [ngStyle]="{'margin-bottom':'10px'}" (click)=addCar()>
+<button class="btn" [disabled]="form.invalid">+Добавить автомобиль</button>
+</div>
+<button class="btn" type="submit" [disabled]="disabled || param == 'view' || form.invalid" (click)="createOwner()">Сохранить</button>
+<button class="btn" [routerLink]="['/']"><<-назад</button>
+
+</form>
+
+

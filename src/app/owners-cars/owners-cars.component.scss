@@ -1,0 +1,12 @@
+.select--оwner{
+  &:hover{
+    cursor:pointer;
+    background: #f8f9fa;
+  }
+}
+
+
+.button-container {
+display: flex;
+justify-content: space-between;
+}
