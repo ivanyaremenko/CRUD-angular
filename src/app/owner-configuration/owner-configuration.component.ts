@@ -110,7 +110,10 @@ addCar() {
         newOwners = this.owners.filter((m) => {return m.id !== this.ownerId})
         newOwners.push(this.owner)
         this.ownerService.reeditOwner(this.owner).subscribe()
-        this.form.reset()
+        this.form.get('gosNumber').reset()
+        this.form.get('nameManufacturer').reset()
+        this.form.get('nameModel').reset()
+        this.form.get('yearProduction').reset()
         this.warning = false;
     } else {
       this.warning = true;
